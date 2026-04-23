@@ -56,3 +56,7 @@ build/
 *.njsproj
 *.sln
 *.sw?
+
+# Database Files
+backend/users.json
+backend/history.json

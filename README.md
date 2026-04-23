@@ -1,90 +1,90 @@
-# ActiveWatch Command Suite 🛡️
+# ActiveLink Global Command Suite 🛡️
 
-**ActiveWatch** is a modern, full-stack application featuring a high-fidelity **Arcade Portal** for users, seamlessly integrated with a real-time **Telemetry Command Console** for administrators. It utilizes WebSockets to track live user engagement, game session data, and connection stability.
+**ActiveLink** is an elite, full-stack orchestration platform featuring a high-fidelity **Arcade Portal** for users, seamlessly integrated with a real-time **System Overview Console** for administrators. Engineered for total visibility, the system utilizes high-performance WebSockets to synchronize live user engagement, game telemetry, and security oversight.
+
+
+![alt text](<Screenshot 2026-04-23 153629.png>)
+
 
 ---
 
-## 🚀 Overview
 
-The system architecture is composed of three primary layers:
-1. **Command Console (Admin)**: A centralized, secure dashboard for monitoring active users, latency metrics, and engagement history.
-2. **Arcade Portal (User)**: A sleek interactive hub where users can play a suite of custom arcade games while their activity telemetry is securely recorded in the background.
-3. **Real-time Engine (Backend)**: A Node.js socket server that handles bi-directional data flow, role-based authentication, and session persistence.
+## 🚀 Architectural Overview
 
-## ✨ Core Features
+The system is organized into three specialized layers, providing a unified digital workspace:
+1. **System Overview (Admin)**: A centralized command center for monitoring active nodes, security alerts, and system health.
+2. **Arcade Portal (User)**: A premium interactive hub where users engage with custom-built arcade games, while real-time activity signals maintain their "Active" status.
+3. **Real-time Engine (Backend)**: A Node.js socket server orchestrating bi-directional data flow, role-based authentication, and session persistence.
 
-### 🎮 The Arcade Suite
-Five bespoke arcade games designed for visual excellence, featuring dynamic color gradients and the *Righteous* arcade font:
-* **✨ Lumina Link**: Establish resonance between floating light nodes.
-* **🎯 Neon Strike**: A fast-paced, precision reflex shooting gallery.
-* **⚡ Binary Blitz**: High-speed reaction tap sequence protocol.
-* **🧩 Zen Match**: A glowing cognitive memory grid matching game.
-* **🫧 Pixel Pop**: Color synchronization and reaction speed test.
+## ✨ Elite Features
 
-### 📊 Real-time Telemetry Monitoring
-* **Live Tracking**: Monitor user status (Online/Idle/Critical) via an automated watchdog script.
-* **Latency Meters**: Real-time RTT (Round Trip Time) ping tracking in milliseconds.
-* **Activity Logs**: Persistent session history stored natively on the server.
-* **Favored Game Analytics**: Automatic identification of the most-played arcade game per user.
+### 🎮 The Hyper-Casual Arcade Suite
+Five bespoke arcade modules designed for visual excellence and cognitive engagement:
+* **✨ Lumina Link**: Establish resonance between floating light nodes in a dynamic field.
+* **🏃 Vector Dash**: Navigate high-speed data lanes and avoid system firewalls.
+* **⚡ Binary Blitz**: A high-frequency reflex tap sequence designed for rapid data-entry testing.
+* **🧩 Zen Match**: A sophisticated memory synchronization grid featuring glowing cognitive nodes.
+* **🫧 Pixel Pop**: A high-speed color-matching protocol for testing reaction synchronization.
 
-### 🎨 Design System
-* **Typography**: *Righteous* (Arcade Titles), *Inter* (Headlines & UI), & *JetBrains Mono* (Telemetry Data).
-* **Aesthetics**: Minimalist dark-mode interface injected with vibrant arcade gradients, glowing accents, bespoke SVGs (Shield & Gamepad Favicons), and premium spacing.
+### 📊 Real-time Monitoring & Telemetry
+* **Cluster Insight**: Monitor individual Operator Nodes (Users) with live status indicators (Stable, Warning, Critical, Offline).
+* **Emergency Uplinks**: Real-time administrative access requests delivered via an encrypted notification channel.
+* **Audit History**: Secure, administrative-only access to system logs and operator activity history.
+* **Automatic Load Tracking**: Dynamic calculation of "Total Uptime" and "Load Metrics" for every connected node.
+
+### 🎨 Design Aesthetic
+* **Visual Excellence**: A "Glassmorphism" UI design system featuring vibrant neon accents, high-contrast dark modes, and premium typography.
+* **Typography**: *Righteous* for high-impact arcade branding and *Inter* / *JetBrains Mono* for professional system clarity.
+* **Interactive HUD**: Dynamic micro-animations, pulsing alerts, and real-time data streams provide a "Living UI" experience.
 
 ## 🛠️ Technology Stack
-* **Frontend Portals**: React.js (Vite), Tailwind CSS (for structure/layout), Vanilla CSS (for glowing visual effects).
-* **Backend Server**: Node.js, Express, Socket.io.
-* **Data Transmission**: WebSockets for sub-100ms real-time telemetry updates.
+* **Frontend**: React.js (Vite), Tailwind CSS (Architecture), Vanilla CSS (Effects).
+* **Backend**: Node.js, Express, Socket.io.
+* **Security**: Role-Based Access Control (RBAC) with cross-portal session synchronization.
 
 ---
 
-## 🔒 Security Protocol
-ActiveWatch employs an enterprise-grade authentication and authorization framework featuring:
-* **Encrypted Authentication**: Securely hashed endpoint passwords utilizing standard `bcrypt` algorithms.
-* **Super-Admin Architecture**: A hardcoded master role (`super_admin`) serves as the core system orchestrator.
-* **Dynamic Role Promotion**: Only an authenticated Master Admin has the authority to promote normal users to authorized administrative viewers, or revoke privileges entirely from the Command Console.
-* **Local Session Persistence**: Advanced front-end connections (for both the Admin Console and User Arcade Portal) safely persist identity arrays in local storage, seamlessly recovering sessions and UI states during browser reloading or accidental disconnects.
+## 🔒 Security & Authorization
+
+ActiveLink employs a multi-tiered security architecture:
+* **Super-Admin Oversight**: A hardcoded master core (`super_admin`) for total system orchestration.
+* **Uplink Request System**: Standard users can dispatch promotion requests to the Command Center, which are then authorized or declined by a Super Admin in real-time.
+* **Cross-Portal Synchronization**: Bi-directional identity verification ensures that transitioning between the Arcade and Command Center automatically synchronizes your session, preventing unauthorized account overlaps.
+* **Secure Audit Gating**: System audit logs are strictly protected and only accessible after successful administrative verification.
 
 ---
 
 ## ⚡ Quick Start
 
 ### Prerequisites
-* Node.js (v16 or higher)
+* Node.js (v18 or higher)
 * npm
 
 ### Installation
-1. Clone the repository and navigate into it:
+1. Clone the repository and install all dependencies:
    ```bash
-   git clone <your-repo-url>
-   cd activewatch
+   npm install
    ```
-2. Install dependencies for all workspace packages. (Execute this in the root directory):
+2. Launch the entire ecosystem concurrently:
    ```bash
-   npm run install:all
+   npm run dev
    ```
-*(Note: If you do not have an `install:all` script in your root `package.json`, simply run `npm install` inside the `backend/`, `frontend/`, and `admin-dashboard/` directories separately).*
 
-### Running the Project
-The project uses `concurrently` to launch all core services with a single command:
-```bash
-npm run dev
-```
-
+### Command Access Points
+* **System Overview (Admin)**: [http://localhost:5174](http://localhost:5174)
+* **Arcade Portal (User)**: [http://localhost:5173](http://localhost:5173)
 * **Real-time Backend**: [http://localhost:3008](http://localhost:3008)
-* **User Arcade Portal**: [http://localhost:5173](http://localhost:5173)
-* **Admin Command Console**: [http://localhost:5174](http://localhost:5174)
 
 ---
 
 ## 📁 Repository Structure
 ```text
 .
-├── admin-dashboard/    # React-based Admin Command Console
-├── backend/            # Socket.io Server, Auth, & History Storage
-├── frontend/           # React-based User Arcade Portal
+├── admin-dashboard/    # System Overview (Admin Console)
+├── backend/            # Real-time Socket Engine & Auth Server
+├── frontend/           # Arcade Portal (User Hub)
 └── README.md           # Documentation
 ```
 
 ---
-*Developed for ActiveWatch Network Oversight &copy; 2026*
+*Developed for ActiveLink Network Oversight &copy; 2026 • Secure Node v5.0*

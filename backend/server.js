@@ -14,6 +14,8 @@ app.use(cors({ origin: allowedOrigins }));
 
 const HISTORY_FILE = path.join(__dirname, 'history.json');
 const USERS_FILE = path.join(__dirname, 'users.json');
+const LEADERBOARD_FILE = path.join(__dirname, 'leaderboard.json');
+const SESSION_FILE = path.join(__dirname, 'sessions.json');
 
 // Request Logger for Debugging
 app.use((req, res, next) => {
@@ -30,7 +32,7 @@ if (!fs.existsSync(HISTORY_FILE)) {
 }
 
 function loadHistory() {
-  try { return JSON.parse(fs.readFileSync(HISTORY_FILE, 'utf8')); } 
+  try { return JSON.parse(fs.readFileSync(HISTORY_FILE, 'utf8')); }
   catch (e) { return { sessions: [] }; }
 }
 
@@ -50,14 +52,14 @@ function saveUsers(usersMap) {
 function loadUsers() {
   if (!fs.existsSync(USERS_FILE)) {
     const defaults = new Map([
-      ['admin@activewatch.com', { 
+      ['admin@activewatch.com', {
         password: '$2b$10$fKltPyBSLkZHGnz3rlqamOOUa4CrmO5QM6qFij6BvsdOmO1eFqkPq', // pass123
         displayName: 'System Admin', role: 'super_admin', recoveryCode: '123456',
         sessionCount: 0, totalActiveTime: 0, lastActivity: null, lastSessionStart: null,
         isActive: false, activeModule: null, activityHistory: [], latency: 0,
         lastInteractionType: 'SIGNAL', moduleStats: {}
       }],
-      ['user@activewatch.com', { 
+      ['user@activewatch.com', {
         password: '$2b$10$fKltPyBSLkZHGnz3rlqamOOUa4CrmO5QM6qFij6BvsdOmO1eFqkPq', // pass123
         displayName: 'Regular User', role: 'user', recoveryCode: '123456',
         sessionCount: 0, totalActiveTime: 0, lastActivity: null, lastSessionStart: null,
@@ -77,6 +79,28 @@ function loadUsers() {
 }
 
 const users = loadUsers();
+const DEFAULT_LEADERBOARD = { lumina: [], strike: [], blitz: [], match: [], pop: [] };
+
+function loadLeaderboard() {
+  if (!fs.existsSync(LEADERBOARD_FILE)) return { ...DEFAULT_LEADERBOARD };
+  try { 
+    const data = JSON.parse(fs.readFileSync(LEADERBOARD_FILE, 'utf8')); 
+    return { ...DEFAULT_LEADERBOARD, ...data };
+  }
+  catch (e) { return { ...DEFAULT_LEADERBOARD }; }
+}
+
+let leaderboard = loadLeaderboard();
+
+function updateLeaderboard(game, player, score) {
+  console.log(`[LEADERBOARD] Received score: ${score} for ${game} by ${player}`);
+  if (!leaderboard[game]) leaderboard[game] = [];
+  leaderboard[game].push({ player, score, timestamp: Date.now() });
+  leaderboard[game].sort((a, b) => b.score - a.score);
+  leaderboard[game] = leaderboard[game].slice(0, 10);
+  fs.writeFileSync(LEADERBOARD_FILE, JSON.stringify(leaderboard, null, 2));
+  io.emit('leaderboard:update', leaderboard);
+}
 
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -100,7 +124,7 @@ function broadcastSnapshot() {
   users.forEach((data, email) => {
     // Cleanup old history
     data.activityHistory = data.activityHistory.filter(ts => ts > (now - 60000));
-    
+
     snapshot.push({
       email,
       displayName: data.displayName,
@@ -116,7 +140,7 @@ function broadcastSnapshot() {
       moduleStats: data.moduleStats
     });
   });
-  io.emit('snapshot', snapshot);
+  io.emit('snapshot', { users: snapshot, leaderboard });
 }
 
 // REST: Get History
@@ -151,7 +175,7 @@ app.post('/register', async (req, res) => {
     lastInteractionType: 'SIGNAL',
     moduleStats: {}
   });
-  
+
   res.status(201).json({ success: true, user: { email, displayName, role: 'user' } });
   saveUsers(users);
 });
@@ -223,7 +247,7 @@ app.post('/logout', (req, res) => {
       u.isActive = false;
       u.lastSessionStart = null;
       u.activeModule = null;
-      
+
       saveSession({
         email,
         displayName: u.displayName,
@@ -240,10 +264,12 @@ app.post('/logout', (req, res) => {
 
 // Socket.IO Logic
 io.on('connection', (socket) => {
-  const email = socket.handshake.query.email;
   const roleRequest = socket.handshake.query.role;
-  
+  const email = socket.handshake.query.email;
   const actualUser = users.get(email);
+  
+  // Send current leaderboard on connection
+  socket.emit('leaderboard:update', leaderboard);
   const userRole = actualUser ? actualUser.role : 'observer';
 
   if (roleRequest === 'admin' && userRole !== 'admin' && userRole !== 'super_admin') {
@@ -251,23 +277,31 @@ io.on('connection', (socket) => {
   }
 
   if (userRole === 'admin' || userRole === 'super_admin') {
-    const snapshot = Array.from(users.entries()).map(([uid, u]) => ({ 
-      ...u, 
-      email: uid, 
-      rpm: calculateRPM(u.activityHistory) 
+    const snapshot = Array.from(users.entries()).map(([uid, u]) => ({
+      ...u,
+      email: uid,
+      rpm: calculateRPM(u.activityHistory)
     }));
     socket.emit('snapshot', snapshot);
 
     // Dynamic Admin Role Promotion System
     socket.on('admin:promote_user', (targetEmail) => {
-      if (userRole !== 'super_admin') return; // Strict Master Admin restriction
+      if (userRole !== 'super_admin') return; 
 
       const targetUser = users.get(targetEmail);
       if (targetUser && targetUser.role !== 'admin' && targetUser.role !== 'super_admin') {
         targetUser.role = 'admin';
         saveUsers(users);
         broadcastSnapshot();
+        // Notify the user directly
+        io.emit('notification:request_status', { email: targetEmail, status: 'ACCEPTED', message: 'Your administrative access has been authorized. Re-link to the Command Center.' });
       }
+    });
+
+    socket.on('admin:deny_access', (targetEmail) => {
+       if (userRole !== 'super_admin') return;
+       // Notify the user directly
+       io.emit('notification:request_status', { email: targetEmail, status: 'DENIED', message: 'Your administrative access request was declined by the Super Admin.' });
     });
 
     socket.on('admin:demote_user', (targetEmail) => {
@@ -286,11 +320,11 @@ io.on('connection', (socket) => {
   if (email && actualUser) {
     actualUser.sessionCount++;
     actualUser.lastActivity = Date.now();
-    
+
     actualUser.isActive = true;
     if (!actualUser.lastSessionStart) actualUser.lastSessionStart = Date.now();
     if (!actualUser.activeModule) actualUser.activeModule = 'PORTAL_IDLE';
-    
+
     // Latency Ping-Pong
     socket.on('latency:ping', (ts) => {
       socket.emit('latency:pong', ts);
@@ -310,44 +344,58 @@ io.on('connection', (socket) => {
         }
         u.lastActivity = Date.now();
         if (payload?.moduleId) {
-           u.activeModule = payload.moduleId;
-           u.moduleStats[u.activeModule] = (u.moduleStats[u.activeModule] || 0) + 1;
+          u.activeModule = payload.moduleId;
+          u.moduleStats[u.activeModule] = (u.moduleStats[u.activeModule] || 0) + 1;
         }
         u.lastInteractionType = payload?.type || 'SIGNAL';
         u.activityHistory.push(Date.now());
-        
-        io.emit('user:activity', { 
-           email, 
-           lastActivity: u.lastActivity, 
-           activeModule: u.activeModule,
-           lastInteractionType: u.lastInteractionType,
-           moduleStats: u.moduleStats
+
+        io.emit('user:activity', {
+          email,
+          lastActivity: u.lastActivity,
+          activeModule: u.activeModule,
+          lastInteractionType: u.lastInteractionType,
+          moduleStats: u.moduleStats
         });
       }
     });
 
-    socket.on('disconnect', () => {
-      const u = users.get(email);
-      if (u) {
-        u.sessionCount--;
-        if (u.sessionCount <= 0) {
-          u.sessionCount = 0;
-          if (u.isActive) {
-            const sessionDuration = Date.now() - (u.lastSessionStart || Date.now());
-            u.totalActiveTime += sessionDuration;
-            u.isActive = false;
-            u.lastSessionStart = null;
-            u.activeModule = null;
+    socket.on('admin:request_access', (payload) => {
+      console.log(`[ACCESS_REQUEST] User ${payload.email} is requesting admin privileges.`);
+      // Broadcast to all admin rooms/sockets
+      io.emit('notification:admin_request', {
+        email: payload.email,
+        name: payload.name,
+        timestamp: Date.now(),
+        message: `${payload.name} (${payload.email}) is requesting administrative access to the Command Center.`
+      });
+    });
 
-            saveSession({
-              email,
-              displayName: u.displayName,
-              end: Date.now(),
-              duration: sessionDuration,
-              type: 'DISCONNECT'
-            });
-          }
+    socket.on('disconnect', () => {
+      if (email && users.has(email)) {
+        const u = users.get(email);
+        if (u.isActive) {
+          const sessionDuration = Date.now() - (u.lastSessionStart || Date.now());
+          u.totalActiveTime += sessionDuration;
+          u.isActive = false;
+          u.lastSessionStart = null;
+          u.activeModule = null;
+
+          saveSession({
+            email,
+            displayName: u.displayName,
+            end: Date.now(),
+            duration: sessionDuration,
+            type: 'DISCONNECT'
+          });
         }
+      }
+    });
+
+    socket.on('game:submit_score', ({ game, score }) => {
+      if (email && users.has(email)) {
+        const user = users.get(email);
+        updateLeaderboard(game, user.displayName, score);
       }
     });
   }
@@ -372,10 +420,10 @@ setInterval(() => {
         duration,
         type: 'INACTIVITY_TIMEOUT'
       });
-      
-      io.emit('user:update', { 
-        email, 
-        isActive: false, 
+
+      io.emit('user:update', {
+        email,
+        isActive: false,
         lastActivity: u.lastActivity,
         sessionCount: u.sessionCount,
         totalActiveTime: u.totalActiveTime
@@ -390,4 +438,4 @@ setInterval(() => {
 }, 5000);
 
 const PORT = process.env.PORT || 3008;
-server.listen(PORT, () => console.log(`ActiveWatch Real-time Engine running on port ${PORT}`));
+server.listen(PORT, () => console.log(`ActiveLink Real-time Engine running on port ${PORT}`));

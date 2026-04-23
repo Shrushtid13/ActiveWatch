@@ -1,0 +1,40 @@
+{
+  "lumina": [
+    {
+      "player": "ox",
+      "score": 600,
+      "timestamp": 1776933791597
+    },
+    {
+      "player": "ox",
+      "score": 600,
+      "timestamp": 1776933791616
+    }
+  ],
+  "strike": [],
+  "blitz": [
+    {
+      "player": "ox",
+      "score": 600,
+      "timestamp": 1776936470122
+    },
+    {
+      "player": "ox",
+      "score": 600,
+      "timestamp": 1776936470130
+    }
+  ],
+  "match": [],
+  "pop": [
+    {
+      "player": "ox",
+      "score": 0,
+      "timestamp": 1776934559721
+    },
+    {
+      "player": "ox",
+      "score": 0,
+      "timestamp": 1776934559748
+    }
+  ]
+}

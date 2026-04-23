@@ -1,0 +1,284 @@
+{
+  "sessions": [
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776812770635,
+      "duration": 1030002,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776813197107,
+      "duration": 64810,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "user@activewatch.com",
+      "displayName": "Regular User",
+      "end": 1776813518789,
+      "duration": 304424,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776813739935,
+      "duration": 68647,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776814184350,
+      "duration": 23557,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "user@activewatch.com",
+      "displayName": "Regular User",
+      "end": 1776814237312,
+      "duration": 76521,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776814270101,
+      "duration": 54155,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776814468349,
+      "duration": 60230,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "user@activewatch.com",
+      "displayName": "Regular User",
+      "end": 1776814866773,
+      "duration": 414776,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "s@gmail.com",
+      "displayName": "ox",
+      "end": 1776815707775,
+      "duration": 274897,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776815765843,
+      "duration": 65128,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "s@gmail.com",
+      "displayName": "ox",
+      "end": 1776815915777,
+      "duration": 169648,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "s@gmail.com",
+      "displayName": "ox",
+      "end": 1776816163780,
+      "duration": 155291,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "s@gmail.com",
+      "displayName": "ox",
+      "end": 1776816433775,
+      "duration": 140638,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "s@gmail.com",
+      "displayName": "ox",
+      "end": 1776816785283,
+      "duration": 302383,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "s@gmail.com",
+      "displayName": "ox",
+      "end": 1776817920952,
+      "duration": 9314,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "s@gmail.com",
+      "displayName": "ox",
+      "end": 1776818297484,
+      "duration": 345081,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776859579983,
+      "duration": 67264,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776919498702,
+      "duration": 62855,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776920209258,
+      "duration": 67526,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "as@gmail.com",
+      "displayName": "Pipo",
+      "end": 1776920338399,
+      "duration": 3389,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776920443237,
+      "duration": 66430,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776920555536,
+      "duration": 15210,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "shru@gmail.com",
+      "displayName": "Shinchan",
+      "end": 1776920673420,
+      "duration": 151826,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776920848785,
+      "duration": 11717,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "shru@gmail.com",
+      "displayName": "Shinchan",
+      "end": 1776920863584,
+      "duration": 189678,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776920933622,
+      "duration": 65463,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776921063716,
+      "duration": 65651,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776921243854,
+      "duration": 60551,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "shru@gmail.com",
+      "displayName": "Shinchan",
+      "end": 1776921454011,
+      "duration": 429638,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776921479111,
+      "duration": 4348,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776921544096,
+      "duration": 63764,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776921876057,
+      "duration": 66617,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "shru@gmail.com",
+      "displayName": "Shinchan",
+      "end": 1776922376493,
+      "duration": 1352120,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "admin@activewatch.com",
+      "displayName": "System Admin",
+      "end": 1776922496569,
+      "duration": 1313266,
+      "type": "INACTIVITY_TIMEOUT"
+    },
+    {
+      "email": "s@gmail.com",
+      "displayName": "ox",
+      "end": 1776922950463,
+      "duration": 7074,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "s@gmail.com",
+      "displayName": "ox",
+      "end": 1776923017100,
+      "duration": 5189,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "s@gmail.com",
+      "displayName": "ox",
+      "end": 1776923314497,
+      "duration": 221469,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "s@gmail.com",
+      "displayName": "ox",
+      "end": 1776923549496,
+      "duration": 234106,
+      "type": "DISCONNECT"
+    },
+    {
+      "email": "s@gmail.com",
+      "displayName": "ox",
+      "end": 1776923967686,
+      "duration": 417556,
+      "type": "INACTIVITY_TIMEOUT"
+    }
+  ]
+}
